@@ -1,0 +1,37 @@
+game:GetService("Players").PlayerAdded:Wait()
+
+local player = game:GetService("Players").LocalPlayer
+
+local function resizeAndHighlightHitbox()
+    if player.Character then
+        local hitbox = player.Character:FindFirstChild("Hitbox")
+        if hitbox and hitbox:IsA("BasePart") then
+            hitbox.Size = Vector3.new(10, 13, 13)
+            hitbox.Transparency = 0.9
+            local highlight = Instance.new("Highlight")
+            highlight.Adornee = hitbox
+            highlight.Parent = hitbox
+            highlight.FillTransparency = 1
+            highlight.OutlineColor = Color3.new(0, 0, 1)
+            highlight.OutlineTransparency = 0.6
+        end
+    end
+end
+
+player.CharacterAdded:Connect(function(character)
+    character.ChildAdded:Connect(function(child)
+        if child.Name == "Hitbox" and child:IsA("BasePart") then
+            child.Size = Vector3.new(10, 13, 13)
+            child.Transparency = 0.9
+            local highlight = Instance.new("Highlight")
+            highlight.Adornee = child
+            highlight.Parent = child
+            highlight.FillTransparency = 1
+            highlight.OutlineColor = Color3.new(0, 0, 1)
+            highlight.OutlineTransparency = 0.6
+        end
+    end)
+    resizeAndHighlightHitbox()
+end)
+
+resizeAndHighlightHitbox()
